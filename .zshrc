@@ -41,7 +41,7 @@ if [[ -r ~/.local.zshrc ]]; then
 fi
 
 # Install k
-source /home/wichtounet/dotfiles/k/k.sh
+source /home/wichtounet/k/k.sh
 
 # Enable colors
 autoload -U colors && colors
