@@ -22,11 +22,20 @@ export PATH="$PATH:/opt/intel/inspector_xe_2015/bin64/"
 export PATH="$PATH:/opt/intel/composer_xe_2015/bin64/"
 export PATH="$PATH:/opt/intel/advisor_xe_2015/bin64/"
 
+# Add Cuda tools to the path
+export PATH="$PATH:/opt/cuda/bin/"
+
 # Add ccache to the path
 export PATH="/usr/lib64/ccache/bin:$PATH"
 
 # Add cross compiler to path
 export PATH="/home/wichtounet/opt/cross/bin/:$PATH"
+
+# Configure distcc
+export DISTCC_HOSTS='160.98.22.10:8080/8,cpp,lzo 160.98.22.11:8080/8,cpp,lzo 160.98.22.12:8080/8,cpp,lzo 160.98.22.13:8080/8,cpp,lzo 160.98.22.14:8080/8,cpp,lzo 160.98.22.15:8080/8,cpp,lzo 160.98.22.16:8080/8,cpp,lzo 160.98.22.17:8080/8,cpp,lzo 160.98.22.18:8080/8,cpp,lzo 160.98.22.19:8080/8,cpp,lzo'
+export DISTCC_VERBOSE=0
+
+alias xmake='LD=/usr/bin/g++-4.9.2 CXX=/usr/lib64/distcc/bin/g++-4.9.2 pump make -j60'
 
 #Configure CCache
 export CCACHE_DIR="/data/ccache"
