@@ -16,11 +16,18 @@ export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/home/wichtounet/build/modular-boost/li
 export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/opt/intel/mkl/lib/intel64"
 export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/opt/intel/lib/intel64"
 
-# Add Intel tools to the path
+# Add Intel 2015 tools to the path
 export PATH="$PATH:/opt/intel/vtune_amplifier_xe_2015/bin64/"
 export PATH="$PATH:/opt/intel/inspector_xe_2015/bin64/"
 export PATH="$PATH:/opt/intel/composer_xe_2015/bin64/"
 export PATH="$PATH:/opt/intel/advisor_xe_2015/bin64/"
+
+# Add Intel 2016 tools to the path
+export PATH="$PATH:/opt/intel/vtune_amplifier_xe_2016/bin64/"
+export PATH="$PATH:/opt/intel/inspector_xe_2016/bin64/"
+export PATH="$PATH:/opt/intel/composer_xe_2016/bin64/"
+export PATH="$PATH:/opt/intel/advisor_xe_2016/bin64/"
+export PATH="$PATH:/opt/intel/compilers_and_libraries/linux/pkg_bin/intel64/"
 
 # Add Cuda tools to the path
 export PATH="$PATH:/opt/cuda/bin/"
@@ -35,7 +42,7 @@ export PATH="/home/wichtounet/opt/cross/bin/:$PATH"
 export DISTCC_HOSTS='160.98.22.10:8080/8,cpp,lzo 160.98.22.11:8080/8,cpp,lzo 160.98.22.12:8080/8,cpp,lzo 160.98.22.13:8080/8,cpp,lzo 160.98.22.14:8080/8,cpp,lzo 160.98.22.15:8080/8,cpp,lzo 160.98.22.16:8080/8,cpp,lzo 160.98.22.17:8080/8,cpp,lzo 160.98.22.18:8080/8,cpp,lzo 160.98.22.19:8080/8,cpp,lzo'
 export DISTCC_VERBOSE=0
 
-alias xmake='LD=/usr/bin/g++-4.9.2 CXX=/usr/lib64/distcc/bin/g++-4.9.2 pump make -j60'
+alias xmake='LD=/usr/bin/g++-4.9.3 CXX=/usr/lib64/distcc/bin/g++-4.9.3 pump make -j60'
 
 #Configure CCache
 export CCACHE_DIR="/data/ccache"
@@ -133,12 +140,15 @@ alias du='du -d1 -h'
 alias sorry='sudo $(fc -l -n -1)'
 alias asshole='echo Alright. You do not have to be rude, you know. && sleep 0.8 && sudo $(fc -l -n -1)'
 
-alias gcc_make='make CXX=g++-4.9.2 LD=g++-4.9.2'
+alias gcc_make='make CXX=g++-4.9.3 LD=g++-4.9.3'
 alias clang_make='make CXX=clang++ LD=clang++'
 alias icc_make='make CXX=icpc LD=icpc'
 alias pump_make='pump make CXX="distcc /usr/bin/clang++"'
 
 alias pump_make='pump make -j16 CXX="distcc /usr/bin/clang++" CC="distcc /usr/bin/clang"'
+
+# Alias to edit a Latex course or presentation
+alias course='zathura build/master.pdf & ; urxvt -e zsh -i -c "workon latex && pytex watch" & ; vim master.tex.rst'
 
 # Copy with pv
 function pvcp(){
