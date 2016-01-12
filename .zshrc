@@ -194,9 +194,9 @@ bindkey -M vicmd 'j' history-beginning-search-forward
 bindkey -M vicmd 'k' history-beginning-search-backward
 
 # Configure default compiler
-export CC=clang
-export CXX=clang++
-export LD=clang++
+export CC=gcc-last
+export CXX=g++-last
+export LD=g++-last
 
 # Make sure nano isn't used
 alias nano='vim'
