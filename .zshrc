@@ -9,8 +9,8 @@ if [[ -r /usr/bin/virtualenvwrapper_lazy.sh ]]; then
     source /usr/bin/virtualenvwrapper_lazy.sh
 fi
 
-# Custom boost to library path
-export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/home/wichtounet/build/modular-boost/lib:/home/wichtounet/install/lib"
+# Custom installation to library path
+export LD_LIBRARY_PATH="$LD_LIBRARY_PATH::/home/wichtounet/install/lib"
 
 # Add suport for MKL libraries
 export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/opt/intel/mkl/lib/intel64"
@@ -40,9 +40,13 @@ export PATH="/home/wichtounet/opt/cross/bin/:$PATH"
 
 # Configure distcc
 export DISTCC_HOSTS='160.98.22.10:8080/8,cpp,lzo 160.98.22.11:8080/8,cpp,lzo 160.98.22.12:8080/8,cpp,lzo 160.98.22.13:8080/8,cpp,lzo 160.98.22.14:8080/8,cpp,lzo 160.98.22.15:8080/8,cpp,lzo 160.98.22.16:8080/8,cpp,lzo 160.98.22.17:8080/8,cpp,lzo 160.98.22.18:8080/8,cpp,lzo 160.98.22.19:8080/8,cpp,lzo'
+export DISTCC_HOSTS_DLL='160.98.22.10:8080/2,cpp,lzo 160.98.22.11:8080/2,cpp,lzo 160.98.22.12:8080/2,cpp,lzo 160.98.22.13:8080/2,cpp,lzo 160.98.22.14:8080/2,cpp,lzo 160.98.22.15:8080/2,cpp,lzo 160.98.22.16:8080/2,cpp,lzo 160.98.22.17:8080/2,cpp,lzo 160.98.22.18:8080/2,cpp,lzo 160.98.22.19:8080/2,cpp,lzo localhost/2,cpp,lzo'
 export DISTCC_VERBOSE=0
 
 alias xmake='LD=/usr/bin/g++-4.9.3 CXX=/usr/lib64/distcc/bin/g++-4.9.3 pump make -j60'
+alias xmake_dll='DISTCC_HOSTS=$DISTCC_HOSTS_DLL LD=/usr/bin/g++-4.9.3 CXX=/usr/lib64/distcc/bin/g++-4.9.3 pump make -j22'
+
+alias templight_make='CC=templight LD=templight++ CXX=templight++ make'
 
 #Configure CCache
 export CCACHE_DIR="/data/ccache"
@@ -149,6 +153,10 @@ alias pump_make='pump make -j16 CXX="distcc /usr/bin/clang++" CC="distcc /usr/bi
 
 # Alias to edit a Latex course or presentation
 alias course='zathura build/master.pdf & ; urxvt -e zsh -i -c "workon latex && pytex watch" & ; vim master.tex.rst'
+
+make_less() {
+    make $@ 2>&1 | less
+}
 
 # Copy with pv
 function pvcp(){
