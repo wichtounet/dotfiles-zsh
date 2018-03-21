@@ -1,4 +1,4 @@
-#Make sure never to forget to use time on long running functions
+
 export REPORTTIME=10
 
 # Make sure the correct editor is used
@@ -38,15 +38,25 @@ export PATH="/usr/lib64/ccache/bin:$PATH"
 # Add cross compiler to path
 export PATH="/home/wichtounet/opt/cross/bin/:$PATH"
 
+# Add clang to the path
+export PATH="/usr/lib64/llvm/4/bin/:$PATH"
+
 # Configure distcc
-export DISTCC_HOSTS='160.98.22.10:8080/8,cpp,lzo 160.98.22.11:8080/8,cpp,lzo 160.98.22.12:8080/8,cpp,lzo 160.98.22.13:8080/8,cpp,lzo 160.98.22.14:8080/8,cpp,lzo 160.98.22.15:8080/8,cpp,lzo 160.98.22.16:8080/8,cpp,lzo 160.98.22.17:8080/8,cpp,lzo 160.98.22.18:8080/8,cpp,lzo 160.98.22.19:8080/8,cpp,lzo'
-export DISTCC_HOSTS_DLL='160.98.22.10:8080/2,cpp,lzo 160.98.22.11:8080/2,cpp,lzo 160.98.22.12:8080/2,cpp,lzo 160.98.22.13:8080/2,cpp,lzo 160.98.22.14:8080/2,cpp,lzo 160.98.22.15:8080/2,cpp,lzo 160.98.22.16:8080/2,cpp,lzo 160.98.22.17:8080/2,cpp,lzo 160.98.22.18:8080/2,cpp,lzo 160.98.22.19:8080/2,cpp,lzo localhost/2,cpp,lzo'
+export DISTCC_HOSTS='160.98.22.10:3632/8,cpp,lzo 160.98.22.11:3632/8,cpp,lzo 160.98.22.12:3632/8,cpp,lzo 160.98.22.13:3632/8,cpp,lzo 160.98.22.14:3632/8,cpp,lzo 160.98.22.15:3632/8,cpp,lzo 160.98.22.16:3632/8,cpp,lzo 160.98.22.17:3632/8,cpp,lzo 160.98.22.18:3632/8,cpp,lzo 160.98.22.19:3632/8,cpp,lzo'
+export DISTCC_HOSTS_DLL='160.98.22.10:3632/2,cpp,lzo 160.98.22.11:3632/2,cpp,lzo 160.98.22.12:3632/2,cpp,lzo 160.98.22.13:3632/2,cpp,lzo 160.98.22.14:3632/2,cpp,lzo 160.98.22.15:3632/2,cpp,lzo 160.98.22.16:3632/2,cpp,lzo 160.98.22.17:3632/2,cpp,lzo 160.98.22.18:3632/2,cpp,lzo 160.98.22.19:3632/2,cpp,lzo localhost/2,cpp,lzo'
+#export DISTCC_HOSTS='160.98.22.10:8080/8,cpp,lzo 160.98.22.11:8080/8,cpp,lzo 160.98.22.12:8080/8,cpp,lzo 160.98.22.14:8080/8,cpp,lzo 160.98.22.15:8080/8,cpp,lzo 160.98.22.16:8080/8,cpp,lzo 160.98.22.17:8080/8,cpp,lzo 160.98.22.18:8080/8,cpp,lzo 160.98.22.19:8080/8,cpp,lzo'
+#export DISTCC_HOSTS_DLL='160.98.22.10:8080/2,cpp,lzo 160.98.22.11:8080/2,cpp,lzo 160.98.22.12:8080/2,cpp,lzo 160.98.22.14:8080/2,cpp,lzo 160.98.22.15:8080/2,cpp,lzo 160.98.22.16:8080/2,cpp,lzo 160.98.22.17:8080/2,cpp,lzo 160.98.22.18:8080/2,cpp,lzo 160.98.22.19:8080/2,cpp,lzo localhost/2,cpp,lzo'
 export DISTCC_VERBOSE=0
 
-alias xmake='LD=/usr/bin/g++-4.9.3 CXX=/usr/lib64/distcc/bin/g++-4.9.3 pump make -j60'
-alias xmake_dll='DISTCC_HOSTS=$DISTCC_HOSTS_DLL LD=/usr/bin/g++-4.9.3 CXX=/usr/lib64/distcc/bin/g++-4.9.3 pump make -j22'
+alias xmake='LD=/usr/bin/g++-7.2.0 CXX=/usr/lib64/distcc/bin/g++-7.2.0 pump make -j80'
+alias xmake_dll='DISTCC_HOSTS=$DISTCC_HOSTS_DLL LD=/usr/bin/g++-7.2.0 CXX=/usr/lib64/distcc/bin/g++-7.2.0 pump make -j22'
+alias xmake_nolink='LD=true CXX=/usr/lib64/distcc/bin/g++-7.2.0 pump make -j80'
+
+alias piss_on_grid='export LD=true; while true; do make clean && xmake_nolink all && true; sleep 5; done'
 
 alias templight_make='CC=templight LD=templight++ CXX=templight++ make'
+
+alias gdbrun='gdb -ex run --args '
 
 #Configure CCache
 export CCACHE_DIR="/data/ccache"
@@ -125,6 +135,7 @@ alias gc='git commit'
 alias gca='git commit -a'
 alias gcadd='git add -A'
 alias gsu='git submodule update'
+alias gpl='git pull'
 alias amend='git commit --amend'
 
 # Misc aliases
@@ -144,7 +155,7 @@ alias du='du -d1 -h'
 alias sorry='sudo $(fc -l -n -1)'
 alias asshole='echo Alright. You do not have to be rude, you know. && sleep 0.8 && sudo $(fc -l -n -1)'
 
-alias gcc_make='make CXX=g++-4.9.3 LD=g++-4.9.3'
+alias gcc_make='make CXX=g++-4.9.4 LD=g++-4.9.4'
 alias clang_make='make CXX=clang++ LD=clang++'
 alias icc_make='make CXX=icpc LD=icpc'
 alias pump_make='pump make CXX="distcc /usr/bin/clang++"'
@@ -200,6 +211,7 @@ bindkey -v
 bindkey -M viins 'jj' vi-cmd-mode
 bindkey -M vicmd 'j' history-beginning-search-forward
 bindkey -M vicmd 'k' history-beginning-search-backward
+bindkey -M vicmd '^R' history-incremental-search-backward
 
 # Configure default compiler
 export CC=gcc-last
@@ -212,3 +224,5 @@ alias nano='vim'
 alias tmux='TERM=screen-256color /usr/bin/tmux'
 
 alias mbm='BMDIR=/home/wichtounet/bookmarks mbm'
+
+alias psgrep='ps aux | grep'
